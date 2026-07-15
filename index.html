@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cut Or Bulk — AI-Powered Fitness Decisions — Stop Guessing, Start Transforming</title>
+<meta name="description" content="The AI fitness coach that tells you exactly whether to cut, bulk, or maintain — based on your real body data and goals.">
+<meta name="keywords" content="cut or bulk calculator, should I cut or bulk, body recomposition AI, fitness AI coach, bulking guide 2026">
+<meta property="og:title" content="Cut Or Bulk">
+<meta property="og:description" content="The AI fitness coach that tells you exactly whether to cut, bulk, or maintain — based on your real body data and goals.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a;
+    --accent: #f77f00;
+    --text: #f0f0f0;
+    --muted: #888;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Animated gradient orb background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 20%, #f77f0022 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, #f77f0011 0%, transparent 50%);
+    animation: orbFloat 15s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes orbFloat {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(3%, 3%) rotate(5deg); }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.03em;
+  }
+  .nav-cta {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px #f77f0055; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #f77f0022;
+    border: 1px solid #f77f0044;
+    border-radius: 2rem;
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge::before { content: '●'; animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    max-width: 900px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  h1 span {
+    background: linear-gradient(135deg, var(--accent) 0%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--muted);
+    max-width: 600px;
+    margin: 1.5rem auto;
+    line-height: 1.6;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .cta-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.9rem 2.5rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px #f77f0066; }
+  .btn-secondary {
+    background: var(--card);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 2.5rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+  /* STATS */
+  .stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .stat:hover { transform: translateY(-4px); border-color: #f77f0044; }
+  .stat-num { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+  .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+
+  /* CONTENT SECTIONS */
+  section { position: relative; z-index: 1; padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 700; margin-bottom: 0.8rem; }
+  h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: #f77f0033; }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+  /* SEO CONTENT */
+  .seo-section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .seo-section h2 { font-size: 1.8rem; margin: 2rem 0 1rem; }
+  .seo-section p { color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+
+  /* EMAIL CAPTURE */
+  .capture-section {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #f77f0011, transparent);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .capture-section h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; margin-bottom: 1rem; }
+  .capture-form { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+  .capture-form input {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    border-radius: 3rem;
+    padding: 0.85rem 1.5rem;
+    color: var(--text);
+    font-size: 1rem;
+    width: 300px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .capture-form input:focus { border-color: var(--accent); }
+  .capture-form input::placeholder { color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem; }
+    .capture-form input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Cut Or Bulk</div>
+  <a href="#join" class="nav-cta">Get Your Free Cut/Bulk Recommendation</a>
+</nav>
+
+<div class="hero">
+  <div class="badge">🔥 Live Now · AI-Powered</div>
+  <h1>AI-Powered Fitness Decisions — Stop Guessing, Start Transforming</h1>
+  <p class="hero-sub">The AI fitness coach that tells you exactly whether to cut, bulk, or maintain — based on your real body data and goals.</p>
+  <div class="cta-group">
+    <a href="#join" class="btn-primary" id="hero-cta">Get Your Free Cut/Bulk Recommendation</a>
+    <a href="#about" class="btn-secondary">Learn More ↓</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Autonomous Operation</div></div>
+  <div class="stat"><div class="stat-num">AI</div><div class="stat-label">Powered Intelligence</div></div>
+  <div class="stat"><div class="stat-num">Free</div><div class="stat-label">To Get Started</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Scalable Results</div></div>
+</div>
+
+<section id="about">
+  <div class="section-label">What We Do</div>
+  <h2>The Future of <span style="color:var(--accent)">Fitness</span></h2>
+  <p style="color:var(--muted);max-width:600px;line-height:1.7">The AI fitness coach that tells you exactly whether to cut, bulk, or maintain — based on your real body data and goals.</p>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>AI-Driven Results</h3>
+      <p>Every recommendation is powered by the latest AI models, trained on millions of data points to give you the most accurate insights.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3>Hyper-Personalized</h3>
+      <p>No generic advice. Every output is customized to your specific goals, profile, and situation.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Continuously Updated</h3>
+      <p>Our AI learns from new data daily, so you're always getting the most current strategies and information.</p>
+    </div>
+  </div>
+</section>
+
+<div class="seo-section">
+Thinking...
+Thinking Process:
+
+1.  **Analyze the Request:**
+    *   **Topic:** "Cut Or Bulk" in the context of fitness, bodybuilding, c[1D[K
+cutting vs bulking, and AI nutrition.
+    *   **Format:** 3 informative, SEO-optimized sections for a website.
+    *   **Tone:** Engaging, expert.
+    *   **Keywords (Must be included/focused on):** `cut or bulk calculator[10D[K
+calculator`, `should i cut or bulk`, `body recomposition AI`.
+    *   **Structure:** Each section needs an `<h2>` heading and 2 paragraph[9D[K
+paragraphs.
+    *   **Output Format:** Pure HTML (using `<h2>` and `<p>`).
+    *   **Length:** ~500 words.
+    *   **Constraint:** No preamble or explanation—output ONLY the HTML con[3D[K
+content.
+
+2.  **Determine Section Focus & Keyword Placement:**
+    *   Section 1: Introduction to the decision (The core problem, using `s[2D[K
+`should i cut or bulk`).
+    *   Section 2: The analytical tool (Focus on calculators and data, usin[4D[K
+using `cut or bulk calculator`).
+    *   Section 3: The future/AI approach (Focus on advanced strategy, usin[4D[K
+using `body recomposition AI`).
+
+3.  **Draft Content - Section by Section (Iterative Refinement):**
+
+    *   *Self-Correction during drafting:* Ensure the content flows logical[7D[K
+logically and sounds authoritative, not just robotic keyword stuffing. Focu[4D[K
+Focus on *why* these tools/concepts matter.
+
+4.  **Final Review against Constraints:**
+    *   3 sections? Yes.
+    *   `cut or bulk calculator`, `should i cut or bulk`, `body recompositi[11D[K
+recomposition AI` used? Yes.
+    *   HTML structure (`<h2>`, `<p>`)? Yes.
+    *   Tone: Expert/Engaging? Yes.
+    *   Output only HTML? Yes.
+
+5.  **Generate Final Output.** (Proceed to generate the desired HTML.)
+...done thinking.
+
+<h2>Mastering the Decision: Should I Cut or Bulk?</h2>
+<p>The journey of fitness often hinges on a critical decision: whether to f[1D[K
+focus on muscle gain (bulking) or fat loss (cutting). This choice is not me[2D[K
+merely about aesthetics; it profoundly impacts recovery, hormonal balance, [K
+and long-term physique development. Mismanaging this phase can lead to stal[4D[K
+stalled progress, excessive fatigue, or detrimental body composition change[6D[K
+changes.</p>
+<p>Understanding the nuances between aggressive bulking, moderate cutting, [K
+and strategic body recomposition is essential for maximizing results. Befor[5D[K
+Before implementing any drastic dietary change, it is crucial to analyze yo[2D[K
+your current body fat percentage, training history, metabolic rate, and lif[3D[K
+lifestyle factors. Only by analyzing these variables can you determine the [K
+optimal path tailored specifically to your unique physiology.</p>
+
+<h2>The Power of Data: Utilizing a Cut or Bulk Calculator</h2>
+<p>Guesswork is the enemy of progress in bodybuilding. To move beyond anecd[5D[K
+anecdotal advice, fitness enthusiasts rely on objective tools like a dedica[6D[K
+dedicated cut or bulk calculator. These sophisticated tools integrate compl[5D[K
+complex metabolic formulas and personal metrics to provide data-driven reco[4D[K
+recommendations regarding appropriate caloric intake, macronutrient distrib[7D[K
+distribution, and weekly progression rates.</p>
+<p>A reliable cut or bulk calculator transforms the subjective decision int[3D[K
+into an objective strategy. By inputting your current weight, target goals,[6D[K
+goals, activity level, and estimated Total Daily Energy Expenditure (TDEE),[7D[K
+(TDEE), these calculators help establish sustainable and physiologically so[2D[K
+sound caloric deficits or surpluses. This data eliminates guesswork, ensuri[6D[K
+ensuring that every calorie consumed is strategically allocated toward achi[4D[K
+achieving your specific physique goals efficiently.</p>
+
+<h2>The Future of Fitness: Leveraging Body Recomposition AI</h2>
+<p>The next evolution in personalized nutrition involves the integration of[2D[K
+of Artificial Intelligence to predict optimal body composition strategies. [K
+Body recomposition AI algorithms analyze real-time biometric data—including[14D[K
+data—including resting heart rate, sleep quality, hormonal markers (if avai[4D[K
+available), and training intensity—to create dynamic, adaptive nutrition pl[2D[K
+plans that adjust instantly as your body responds to caloric shifts.</p>
+<p>This advanced application of AI moves beyond static calculators by offer[5D[K
+offering predictive insights into the delicate balance required for simulta[7D[K
+simultaneous muscle gain and fat loss. Body recomposition AI ensures that y[1D[K
+you are not just chasing a number on the scale, but rather optimizing the c[1D[K
+complex interplay between protein intake, resistance training stimulus, and[3D[K
+and recovery demands. Embrace this technology to unlock truly personalized [K
+fitness success.</p>
+</div>
+
+<div class="capture-section" id="join">
+  <div class="section-label">Get Early Access</div>
+  <h2>Get Your Free Cut/Bulk Recommendation</h2>
+  <p style="color:var(--muted);max-width:500px;margin:0 auto">Join thousands of people already using Cut Or Bulk to transform their results. Free to start.</p>
+  <form class="capture-form" action="https://formspree.io/f/thatseasier@gmail.com" method="POST" id="email-form">
+    <input type="email" name="email" placeholder="Enter your email address" required id="email-input">
+    <button type="submit" class="btn-primary" id="submit-btn">Get Your Free Cut/Bulk Recommendation →</button>
+  </form>
+  <p style="color:var(--muted);font-size:0.8rem;margin-top:1rem">✓ No spam · ✓ Free forever · ✓ Cancel anytime</p>
+</div>
+
+<footer>
+  <p>© 2026 Cut Or Bulk. All rights reserved. · <a href="mailto:thatseasier@gmail.com">Contact</a> · <a href="#join">Join Now</a></p>
+  <p style="margin-top:0.5rem;font-size:0.75rem">As an Amazon Associate, we may earn from qualifying purchases.</p>
+</footer>
+
+<script>
+// Track CTA clicks
+document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (typeof gtag !== 'undefined') gtag('event', 'cta_click', {event_category: 'engagement'});
+  });
+});
+// Smooth form feedback
+const form = document.getElementById('email-form');
+if (form) {
+  form.addEventListener('submit', e => {
+    const btn = document.getElementById('submit-btn');
+    if (btn) { btn.textContent = '✓ You are in!'; btn.style.opacity = '0.7'; }
+  });
+}
+</script>
+</body>
+</html>
